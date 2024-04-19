@@ -1,4 +1,4 @@
 <resources>
 
-    <style name="Theme.MagiCam" parent="@style/Theme.AppCompat" />
+    <style name="Theme.MagiCam" parent="@style/Theme.AppCompat.NoActionBar" />
 </resources>
