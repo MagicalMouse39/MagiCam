@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-feature android:name="android.hardware.bluetooth"
+        android:required="true" />
+
     <application android:appCategory="video">
 
         <meta-data
@@ -10,7 +13,7 @@
          consumers through MediaBrowserService and MediaSession. Consumers connect to it through
          MediaBrowser (for browsing) and MediaController (for playback control) -->
         <service
-            android:name="it.magical.magicam.shared.MyMusicService"
+            android:name="it.magical.magicam.shared.MagiCamService"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />

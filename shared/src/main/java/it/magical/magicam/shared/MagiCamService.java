@@ -65,7 +65,7 @@ import java.util.List;
  *
  * </ul>
  */
-public class MyMusicService extends MediaBrowserServiceCompat {
+public class MagiCamService extends MediaBrowserServiceCompat {
 
     private MediaSessionCompat mSession;
 
@@ -73,7 +73,7 @@ public class MyMusicService extends MediaBrowserServiceCompat {
     public void onCreate() {
         super.onCreate();
 
-        mSession = new MediaSessionCompat(this, "MyMusicService");
+        mSession = new MediaSessionCompat(this, "MagiCamService");
         setSessionToken(mSession.getSessionToken());
         mSession.setCallback(new MediaSessionCallback());
         mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
@@ -83,6 +83,7 @@ public class MyMusicService extends MediaBrowserServiceCompat {
     @Override
     public void onDestroy() {
         mSession.release();
+        super.onDestroy();
     }
 
     @Override

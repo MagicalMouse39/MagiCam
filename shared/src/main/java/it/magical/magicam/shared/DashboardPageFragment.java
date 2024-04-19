@@ -1,4 +1,4 @@
-package it.magical.magicam;
+package it.magical.magicam.shared;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

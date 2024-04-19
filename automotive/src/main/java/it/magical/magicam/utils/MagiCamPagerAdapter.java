@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.ArrayList;
 
 import it.magical.magicam.CameraPageFragment;
-import it.magical.magicam.DashboardPageFragment;
+import it.magical.magicam.shared.DashboardPageFragment;
 import it.magical.magicam.SettingsPageFragment;
 
 public class MagiCamPagerAdapter extends FragmentStateAdapter {
