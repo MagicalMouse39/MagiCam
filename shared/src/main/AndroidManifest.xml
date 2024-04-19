@@ -1,7 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="it.magical.magicam.shared">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <application android:appCategory="audio">
+    <application android:appCategory="video">
 
         <meta-data
             android:name="com.google.android.gms.car.application"
