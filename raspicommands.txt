@@ -1,0 +1,5 @@
+Preparazione bluetooth
+sudo apt install python3-bluez
+vim /etc/systemd/system/dbus-org.bluez.service -> aggiungere -C in ExecStart=/usr/lib/bluetooth/bluetoothd -C
+sudo sdptool add SP
+sudo hciconfig hci0 piscan
