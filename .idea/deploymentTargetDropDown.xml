@@ -4,17 +4,6 @@
     <value>
       <entry key="automotive">
         <State>
-          <runningDeviceTargetSelectedWithDropDown>
-            <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
-              <deviceKey>
-                <Key>
-                  <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\anton\.android\avd\Automotive_1024p_landscape_API_32.avd" />
-                </Key>
-              </deviceKey>
-            </Target>
-          </runningDeviceTargetSelectedWithDropDown>
           <targetSelectedWithDropDown>
             <Target>
               <type value="QUICK_BOOT_TARGET" />
@@ -26,23 +15,23 @@
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-19T15:18:16.868793600Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-05-01T21:23:12.055464500Z" />
         </State>
       </entry>
       <entry key="mobile">
         <State>
-          <runningDeviceTargetSelectedWithDropDown>
+          <targetSelectedWithDropDown>
             <Target>
-              <type value="RUNNING_DEVICE_TARGET" />
+              <type value="QUICK_BOOT_TARGET" />
               <deviceKey>
                 <Key>
-                  <type value="SERIAL_NUMBER" />
-                  <value value="85ROQKLZJZMNCUDY" />
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\anton\.android\avd\Automotive_1024p_landscape_API_32.avd" />
                 </Key>
               </deviceKey>
             </Target>
-          </runningDeviceTargetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-04-19T19:57:48.805201900Z" />
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-01T21:18:44.444280500Z" />
         </State>
       </entry>
     </value>

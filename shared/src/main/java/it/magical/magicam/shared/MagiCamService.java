@@ -1,5 +1,6 @@
 package it.magical.magicam.shared;
 
+import android.net.Network;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.support.v4.media.session.MediaSessionCompat;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import it.magical.magicam.shared.net.NetworkManager;
 
 /**
  * This class provides a MediaBrowser through a service. It exposes the media library to a browsing
@@ -78,6 +81,8 @@ public class MagiCamService extends MediaBrowserServiceCompat {
         mSession.setCallback(new MediaSessionCallback());
         mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
                 MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+
+        NetworkManager.getI().startDiscoveryServer();
     }
 
     @Override
