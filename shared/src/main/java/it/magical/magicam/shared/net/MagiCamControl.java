@@ -1,19 +1,16 @@
 package it.magical.magicam.shared.net;
 
-import android.database.Observable;
 import android.os.Handler;
 import android.os.Looper;
 
-import androidx.databinding.ObservableBoolean;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,6 +21,8 @@ public class MagiCamControl extends Thread {
     private ControlClient client;
 
     private final MutableLiveData<Boolean> lightsState = new MutableLiveData<>(false);
+
+    private final MutableLiveData<Boolean> doneGettingInfo = new MutableLiveData<>(false);
 
     public MagiCamControl() {
         client = new ControlClient();
@@ -40,6 +39,13 @@ public class MagiCamControl extends Thread {
             default:
                 // TODO: Proper logging (unknown command)
         }
+    }
+
+    public void getInfo() {
+        client.sendLightsState(LightsStateArg.GET);
+
+        Observer<Boolean> lightsStateObserver = aBoolean -> new Handler(Looper.getMainLooper()).post(() -> doneGettingInfo.setValue(true));
+        lightsState.observeForever(lightsStateObserver);
     }
 
     private void handleClient(Socket client) {
@@ -90,6 +96,6 @@ public class MagiCamControl extends Thread {
     }
 
     public void setLightsState(boolean state) {
-        client.setLightsState(state);
+        client.sendLightsState(state ? LightsStateArg.ON : LightsStateArg.OFF);
     }
 }

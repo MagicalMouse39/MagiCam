@@ -37,10 +37,12 @@ public class NetworkManager {
         discoveryServer = new DiscoveryServer();
         discovered.observeForever(disc -> {
             if (disc) {
-                new Handler(Looper.getMainLooper()).post(() -> discovered.setValue(true));
                 control.start();
+                control.getInfo();
             }
         });
+        discoveryServer.setDiscoveryListener(() ->
+                new Handler(Looper.getMainLooper()).post(() -> discovered.setValue(true)));
         discoveryServer.start();
     }
 

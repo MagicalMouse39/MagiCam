@@ -7,7 +7,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class ControlClient {
     private void sendCmd(String cmd, String... args) {
@@ -43,7 +42,11 @@ public class ControlClient {
         }).start();
     }
 
-    public void setLightsState(boolean state) {
-        sendCmd("lights_state", state ? "on" : "off");
+    public void sendLightsState(LightsStateArg arg) {
+        sendCmd("lights_state", arg == LightsStateArg.OFF ? "off" : arg == LightsStateArg.ON ? "on" : "get");
     }
+}
+
+enum LightsStateArg {
+    OFF, ON, GET
 }

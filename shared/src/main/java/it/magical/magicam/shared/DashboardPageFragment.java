@@ -20,6 +20,10 @@ import it.magical.magicam.shared.net.NetworkManager;
 
 public class DashboardPageFragment extends Fragment {
 
+    private final MagiCamControl control = NetworkManager.getI().getControl();
+
+    public final MutableLiveData<Boolean> lightsState = control.getLightsState();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,5 +33,15 @@ public class DashboardPageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        FragmentDashboardBinding binding = DataBindingUtil.setContentView(this.getActivity(), it.magical.magicam.shared.R.layout.fragment_dashboard);
+
+        binding.setLifecycleOwner(this);
+
+        binding.setLightsState(lightsState);
+
+        Button b = this.getActivity().findViewById(R.id.toggleLightsButton);
+        b.setOnClickListener((a) ->
+                control.setLightsState(!control.getLightsState().getValue()));
     }
 }
