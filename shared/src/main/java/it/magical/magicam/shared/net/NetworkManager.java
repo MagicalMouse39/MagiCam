@@ -1,11 +1,14 @@
 package it.magical.magicam.shared.net;
 
+import android.content.Context;
+import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Looper;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,21 @@ public class NetworkManager {
 
     private NetworkManager() {
         control = new MagiCamControl();
+    }
+
+    public boolean checkHotspotState(WifiManager wifiManager) {
+        try {
+            Method method = wifiManager.getClass().getDeclaredMethod("getWifiApState");
+            method.setAccessible(true);
+            // 11 = OFF
+            // 13 = ON
+            int actualState = (Integer) method.invoke(wifiManager, (Object[]) null);
+            return actualState == 13;
+        } catch (Exception e) {
+            // TODO: Proper logging
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void startDiscoveryServer() {
