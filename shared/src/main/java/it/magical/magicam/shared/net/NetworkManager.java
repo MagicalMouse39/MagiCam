@@ -1,5 +1,6 @@
 package it.magical.magicam.shared.net;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,12 @@ public class NetworkManager {
 
     private boolean discovered = false;
 
+    private InetAddress magicamAddress;
+
+    private ControlClient controlClient;
+
     private static NetworkManager instance;
+
     public static NetworkManager getI() {
         if (instance == null) {
             instance = new NetworkManager();
@@ -22,6 +28,8 @@ public class NetworkManager {
     private NetworkManager() {
         discoveryListeners = new ArrayList<>();
         discoveryListeners.add(() -> discovered = true);
+
+        controlClient = new ControlClient();
     }
 
     public void startDiscoveryServer() {
@@ -37,14 +45,26 @@ public class NetworkManager {
     }
 
     public void addDiscoveryListener(Runnable listener) {
-        this.discoveryListeners.add(listener);
+        discoveryListeners.add(listener);
     }
 
     public void removeDiscoveryListener(Runnable listener) {
-        this.discoveryListeners.remove(listener);
+        discoveryListeners.remove(listener);
     }
 
     public boolean hasDiscovered() {
         return discovered;
+    }
+
+    public InetAddress getMagicamAddress() {
+        return magicamAddress;
+    }
+
+    public void setMagicamAddress(InetAddress magicamAddress) {
+        this.magicamAddress = magicamAddress;
+    }
+
+    public ControlClient getControlClient() {
+        return controlClient;
     }
 }

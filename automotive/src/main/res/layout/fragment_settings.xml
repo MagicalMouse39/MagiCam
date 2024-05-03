@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/textView"
-    android:text="Settings" />
+    android:id="@+id/textView">
+    <data>
+        <variable
+            name="connected"
+            type="androidx.databinding.ObservableBoolean" />
+        <variable
+            name="address"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+    </data>
+    <GridLayout>
+        <TextView android:text="@{Boolean.toString(connected)}" />
+        <TextView android:text="@{address}" />
+    </GridLayout>
+</layout>

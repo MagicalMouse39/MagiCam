@@ -81,8 +81,6 @@ public class MagiCamService extends MediaBrowserServiceCompat {
         mSession.setCallback(new MediaSessionCallback());
         mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
                 MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
-
-        NetworkManager.getI().startDiscoveryServer();
     }
 
     @Override
