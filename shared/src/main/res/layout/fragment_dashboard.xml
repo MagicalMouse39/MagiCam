@@ -9,12 +9,12 @@
         <variable name="lightsState" type="LiveData&lt;Boolean>"/>
     </data>
     <LinearLayout android:orientation="vertical">
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{Boolean.toString(lightsState)}" />
-        <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageButton android:layout_width="150dp"
+            android:layout_height="150dp"
             android:id="@+id/toggleLightsButton"
-            android:text="Toggle" />
+            android:scaleType="fitXY"
+            android:padding="50dp"
+            android:background="@{lightsState ? @android:color/holo_orange_dark : @android:color/darker_gray}"
+            android:src="@{lightsState ? @drawable/lights_off : @drawable/lights_on}" />
     </LinearLayout>
 </layout>

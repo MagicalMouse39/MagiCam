@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +41,7 @@ public class DashboardPageFragment extends Fragment {
 
         binding.setLightsState(lightsState);
 
-        Button b = this.getActivity().findViewById(R.id.toggleLightsButton);
+        ImageButton b = this.getActivity().findViewById(R.id.toggleLightsButton);
         b.setOnClickListener((a) ->
                 control.setLightsState(!control.getLightsState().getValue()));
     }
