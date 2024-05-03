@@ -1,19 +1,23 @@
 package it.magical.magicam.shared.net;
 
+import android.os.Handler;
+import android.os.Looper;
+
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 public class NetworkManager {
-    private final List<Runnable> discoveryListeners;
-
     private DiscoveryServer discoveryServer;
 
-    private boolean discovered = false;
+    private final MutableLiveData<Boolean> discovered = new MutableLiveData<>();
 
     private InetAddress magicamAddress;
 
-    private ControlClient controlClient;
+    private MagiCamControl control;
 
     private static NetworkManager instance;
 
@@ -26,15 +30,17 @@ public class NetworkManager {
     }
 
     private NetworkManager() {
-        discoveryListeners = new ArrayList<>();
-        discoveryListeners.add(() -> discovered = true);
-
-        controlClient = new ControlClient();
+        control = new MagiCamControl();
     }
 
     public void startDiscoveryServer() {
         discoveryServer = new DiscoveryServer();
-        discoveryServer.setDiscoveryListener(() -> discoveryListeners.forEach(Runnable::run));
+        discovered.observeForever(disc -> {
+            if (disc) {
+                new Handler(Looper.getMainLooper()).post(() -> discovered.setValue(true));
+                control.start();
+            }
+        });
         discoveryServer.start();
     }
 
@@ -42,18 +48,6 @@ public class NetworkManager {
         if (discoveryServer == null) return;
 
         discoveryServer.shutdown();
-    }
-
-    public void addDiscoveryListener(Runnable listener) {
-        discoveryListeners.add(listener);
-    }
-
-    public void removeDiscoveryListener(Runnable listener) {
-        discoveryListeners.remove(listener);
-    }
-
-    public boolean hasDiscovered() {
-        return discovered;
     }
 
     public InetAddress getMagicamAddress() {
@@ -64,7 +58,11 @@ public class NetworkManager {
         this.magicamAddress = magicamAddress;
     }
 
-    public ControlClient getControlClient() {
-        return controlClient;
+    public MagiCamControl getControl() {
+        return control;
+    }
+
+    public MutableLiveData<Boolean> getDiscovered() {
+        return discovered;
     }
 }

@@ -5,6 +5,14 @@ plugins {
 android {
     compileSdk 34
 
+    dataBinding {
+        enabled true
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
     defaultConfig {
         applicationId "it.magical.magicam"
         minSdk 30

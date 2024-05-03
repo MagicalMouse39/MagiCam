@@ -25,15 +25,16 @@ public class DiscoveryServer extends Thread {
 
         try {
             sock = new ServerSocket();
-            sock.bind(new InetSocketAddress("0.0.0.0", 6969));
+            sock.bind(new InetSocketAddress("0.0.0.0", 6968));
             while (true) {
                 try (Socket client = sock.accept()) {
                     client.setSoTimeout(2000);
                     byte[] buf = new byte[8];
                     if (client.getInputStream().read(buf) < 0) continue;
                     if (!new String(buf).equals(MAGICAM_ID)) continue;
-                    discoveryListener.run();
                     NetworkManager.getI().setMagicamAddress(client.getInetAddress());
+                    sock.close();
+                    discoveryListener.run();
                     break;
                 } catch (IOException e) {
                     // TODO: Logging

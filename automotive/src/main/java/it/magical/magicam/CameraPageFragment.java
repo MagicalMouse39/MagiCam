@@ -1,6 +1,8 @@
 package it.magical.magicam;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.BindingConversion;
 import androidx.databinding.ObservableBoolean;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.exoplayer.DefaultLoadControl;
@@ -24,9 +28,7 @@ import it.magical.magicam.shared.net.NetworkManager;
 public class CameraPageFragment extends Fragment {
     private final NetworkManager netman = NetworkManager.getI();
 
-    public final ObservableBoolean connected = new ObservableBoolean(netman.hasDiscovered());
-
-    private final Runnable discoveryListener = () -> connected.set(true);
+    public final MutableLiveData<Boolean> connected = netman.getDiscovered();
 
     @Nullable
     @Override
@@ -38,8 +40,6 @@ public class CameraPageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        netman.addDiscoveryListener(discoveryListener);
 
         MediaSource mediaSource =
                 new RtspMediaSource.Factory().createMediaSource(MediaItem.fromUri("rtsp://192.168.53.139:8554/cam.stream"));
@@ -60,8 +60,6 @@ public class CameraPageFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        netman.removeDiscoveryListener(discoveryListener);
-
         super.onDestroyView();
     }
 }
