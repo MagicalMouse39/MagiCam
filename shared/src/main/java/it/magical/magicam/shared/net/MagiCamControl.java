@@ -22,7 +22,7 @@ public class MagiCamControl extends Thread {
 
     private final MutableLiveData<Boolean> lightsState = new MutableLiveData<>(false);
 
-    private final MutableLiveData<Boolean> doneGettingInfo = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> connectionReady = new MutableLiveData<>(false);
 
     public MagiCamControl() {
         client = new ControlClient();
@@ -44,7 +44,7 @@ public class MagiCamControl extends Thread {
     public void getInfo() {
         client.sendLightsState(LightsStateArg.GET);
 
-        Observer<Boolean> lightsStateObserver = aBoolean -> new Handler(Looper.getMainLooper()).post(() -> doneGettingInfo.setValue(true));
+        Observer<Boolean> lightsStateObserver = aBoolean -> new Handler(Looper.getMainLooper()).post(() -> connectionReady.setValue(true));
         lightsState.observeForever(lightsStateObserver);
     }
 
@@ -93,6 +93,10 @@ public class MagiCamControl extends Thread {
 
     public MutableLiveData<Boolean> getLightsState() {
         return lightsState;
+    }
+
+    public MutableLiveData<Boolean> isConnectionReady() {
+        return connectionReady;
     }
 
     public void setLightsState(boolean state) {

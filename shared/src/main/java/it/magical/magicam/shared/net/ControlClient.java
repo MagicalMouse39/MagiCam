@@ -1,5 +1,8 @@
 package it.magical.magicam.shared.net;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ public class ControlClient {
             } catch (IOException e) {
                 // TODO: Proper logging
                 e.printStackTrace();
+                new Handler(Looper.getMainLooper()).post(() -> NetworkManager.getI().getControl().isConnectionReady().setValue(false));
             } catch (JSONException e) {
                 // TODO: Proper logging
                 e.printStackTrace();
